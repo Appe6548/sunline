@@ -1,23 +1,1005 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>阳光学校 - 生存通讯</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阳光学校 - 文字冒险游戏</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Courier New', monospace;
-        background: #0a0a0a;
-        color: #00ff00;
-        overflow: hidden;
-      }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #1a1a1a;
+        }
+        .chat-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-container::-webkit-scrollbar-thumb {
+            background-color: #4a4a4a;
+            border-radius: 20px;
+        }
+        .message-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 20px;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+        .character-message {
+            background-color: #333333;
+            color: #e5e5e5;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .player-message {
+            background-color: #007bff;
+            color: #ffffff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .diary-entry {
+            background-color: #4a443a;
+            color: #dcdcdc;
+            border-left: 3px solid #f5b041;
+            font-style: italic;
+        }
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            align-self: flex-start;
+            margin: 10px 0;
+        }
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            margin: 0 2px;
+            background-color: #7d7d7d;
+            border-radius: 50%;
+            display: inline-block;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+        .status-bar-bg {
+             background-color: rgba(0, 0, 0, 0.2);
+             backdrop-filter: blur(10px);
+        }
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        #modal-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
     </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-2xl mx-auto bg-gray-800 shadow-2xl rounded-2xl h-[90vh] flex flex-col">
+        
+        <!-- 状态栏 -->
+        <div class="status-bar-bg p-4 border-b border-gray-700 rounded-t-2xl">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-lg font-bold text-gray-200">通讯频道: <span class="text-green-400">林峰</span></h2>
+                <span id="signal-strength" class="text-sm font-medium text-green-400">信号稳定</span>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <label for="health" class="block mb-1 text-gray-400">生命体征</label>
+                    <div class="w-full bg-gray-600 rounded-full h-2.5">
+                        <div id="health-bar" class="bg-green-500 h-2.5 rounded-full progress-bar" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <label for="radiation" class="block mb-1 text-gray-400">辐射暴露</label>
+                    <div class="w-full bg-gray-600 rounded-full h-2.5">
+                        <div id="radiation-bar" class="bg-yellow-500 h-2.5 rounded-full progress-bar" style="width: 5%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <p class="text-xs text-gray-400">物品栏: <span id="inventory-display" class="font-mono text-gray-300">空</span></p>
+            </div>
+        </div>
+
+        <!-- 聊天容器 -->
+        <div id="chat-container" class="flex-1 p-6 overflow-y-auto chat-container flex flex-col space-y-4">
+            <!-- 消息会动态添加到这里 -->
+        </div>
+
+        <!-- 输入区域 -->
+        <div id="input-area" class="p-4 border-t border-gray-700 rounded-b-2xl">
+            <div id="choices-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <!-- 选项按钮会动态添加到这里 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏结束模态框 -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden">
+        <div class="bg-gray-800 rounded-lg shadow-xl p-8 max-w-sm w-full text-center">
+            <h2 id="modal-title" class="text-2xl font-bold mb-4">游戏结束</h2>
+            <p id="modal-message" class="text-gray-300 mb-6">你未能成功引导他活下来。</p>
+            <button onclick="restartGame()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">重新开始</button>
+        </div>
+    </div>
+
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const choicesContainer = document.getElementById('choices-container');
+        const healthBar = document.getElementById('health-bar');
+        const radiationBar = document.getElementById('radiation-bar');
+        const inventoryDisplay = document.getElementById('inventory-display');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+
+        let gameState = {};
+
+        function restartGame() {
+            gameState = {
+                health: 100,
+                radiation: 5,
+                inventory: [],
+                currentScene: 'start',
+                flags: {},
+            };
+            chatContainer.innerHTML = '';
+            modalOverlay.classList.add('hidden');
+            updateStatus();
+            playScene('start');
+        }
+
+
+        const story = {
+            'start': {
+                text: [
+                    "...喂...有人吗？",
+                    "我的通讯设备好像修好了...重复，这里是勘探队队员林峰，有人能收到吗？",
+                    "我跟队伍失散了，被困在...一个鬼地方。这里看起来像个废弃的学校。"
+                ],
+                choices: [
+                    { text: "我是救援协调员。我能收到，林峰。报告你的情况。", nextScene: 'reportStatus' },
+                    { text: "你是谁？你怎么连接到这个安全频道的？", nextScene: 'whoAreYou' }
+                ]
+            },
+            'whoAreYou': {
+                text: [
+                    "我...我是勘探队的林峰！我的队员编号是734！设备是在风暴中损坏的，我刚修好它，它就自动连接到了这个频道！",
+                    "我需要帮助！请确认你的身份！"
+                ],
+                choices: [
+                    { text: "好了，林峰，别激动。我是协调员。报告你的情况。", nextScene: 'reportStatus' },
+                    { text: "冷静。我正在核实你的身份。待在原地别动。", nextScene: 'verifyingIdentity' }
+                ]
+            },
+            'verifyingIdentity': {
+                text: [
+                    "（几秒钟的沉默）",
+                    "核实...？好吧，我等。但这里让我感觉很不舒服。"
+                ],
+                choices: [
+                    { text: "身份核实完毕。林峰，报告你的情况。", nextScene: 'reportStatus' },
+                    { text: "你的身份有疑点，但现在没时间了。报告情况。", nextScene: 'reportStatus' }
+                ]
+            },
+            'reportStatus': {
+                text: [
+                    "协调员？！太好了！我还以为...",
+                    "总之，我最后一次见到队长是在学校主楼的入口。我们当时正在躲避一场突如其来的辐射风暴，然后...我就跟丢了。",
+                    "我现在的位置...好像是一个大厅。到处都是灰，空气里有股铁锈和...腐烂的味道。我该怎么办？",
+                ],
+                choices: [
+                    { text: "保持冷静。先找一个安全的地方。检查周围环境。", nextScene: 'exploreHall' },
+                    { text: "别乱动，待在原地。你的生命体征如何？", nextScene: 'checkVitals' }
+                ]
+            },
+            'checkVitals': {
+                text: [
+                    "我...我感觉头有点晕，可能是刚才摔了一下。除此之外，应该还好。",
+                    "设备显示我的生命体征稳定，但辐射探测器一直在响，虽然读数还不算太高。",
+                    "我真的要一直待在这里吗？感觉很不安。"
+                ],
+                choices: [
+                     { text: "好吧，那你去探索一下大厅，但要万分小心。", nextScene: 'exploreHall' },
+                     { text: "原地休息一下。闭上眼睛，做几次深呼吸。", nextScene: 'restInHall' }
+                ]
+            },
+            'restInHall': {
+                text: [
+                    "好的...呼...吸...",
+                    "感觉好一点了，头不那么晕了。谢谢你，协调员。",
+                    "我准备好行动了。"
+                ],
+                action: () => {
+                    gameState.health = Math.min(100, gameState.health + 5);
+                    updateStatus();
+                },
+                choices: [
+                    { text: "很好，现在去探索大厅。", nextScene: 'exploreHall' },
+                    { text: "感觉好点就行，我们得走了。", nextScene: 'exploreHall' }
+                ]
+            },
+            'exploreHall': {
+                text: [
+                    "收到。正在观察...",
+                    "大厅很空旷，地上散落着一些破损的桌椅。左手边有扇门，标牌上写着'学校商店'。右手边是'食堂'。正前方是一条走廊，通向更深处。",
+                    "我应该先去哪里？"
+                ],
+                choices: [
+                    { text: "去学校商店看看。可能会有能用的物资。", nextScene: 'enterStore' },
+                    { text: "去食堂看看。小心点，里面可能不干净。", nextScene: 'enterCafeteria' },
+                ]
+            },
+            'enterCafeteria': {
+                text: [
+                    "正在进入食堂...这里的味道...比大厅难闻多了。",
+                    "餐盘都还摆在桌上，上面的东西已经变成了无法形容的黑色物质。地上黏糊糊的。",
+                    "我检查了一下厨房，没什么能用的东西，反而感觉有点恶心。",
+                    "这里的辐射值比大厅高一点。"
+                ],
+                action: () => {
+                    gameState.health -= 5;
+                    gameState.radiation += 5;
+                    updateStatus();
+                },
+                choices: [
+                    { text: "快出来，那里不安全。回大厅。", nextScene: 'exploreHall_afterCafeteria' },
+                    { text: "再仔细找找厨房，看看有没有罐头之类的。", nextScene: 'searchKitchen' }
+                ]
+            },
+            'searchKitchen': {
+                text: [
+                    "好吧，我再看看...不，什么都没有。只有腐烂的东西和生锈的厨具。",
+                    "等一下...我在一个柜子深处找到一包密封的盐。也许有用？"
+                ],
+                choices: [
+                    { text: "聊胜于无。拿上它，离开食堂。", nextScene: 'takeSalt' },
+                    { text: "盐没什么用，别管了。快离开那里。", nextScene: 'exploreHall_afterCafeteria' }
+                ]
+            },
+            'takeSalt': {
+                text: ["好吧，拿上了。我们走。"],
+                action: () => {
+                    gameState.inventory.push('盐');
+                    updateStatus();
+                },
+                choices: [
+                     { text: "离开食堂，回大厅。", nextScene: 'exploreHall_afterCafeteria' }
+                ]
+            },
+            'exploreHall_afterCafeteria': {
+                text: ["出来了。看来食堂是个错误的选择。"],
+                choices: [
+                    { text: "那现在去学校商店看看。", nextScene: 'enterStore' },
+                    { text: "直接去走廊吧，别浪费时间了。", nextScene: 'mainCorridor' }
+                ]
+            },
+             'enterStore': {
+                text: [
+                    "好的，正在进入商店。",
+                    "这里...货架都倒了，东西散了一地。",
+                    "我在柜台后面发现了一本满是油污的采购账本。上面潦草地记录着...天哪，全是些叫'高效营养膏'的东西，供应商是... '昌景黄'。备注里写着'成本极低，利润可观'。",
+                    "除了账本，我还找到一瓶密封完好的水。"
+                ],
+                action: () => {
+                    gameState.inventory.push('瓶装水');
+                },
+                choices: [
+                    { text: "昌景黄...记住这个名字。拿上水和账本，我们离开。", nextScene: 'takeLedger' },
+                    { text: "这账本太可疑了。把它藏好，只拿走水。", nextScene: 'store_exit' }
+                ]
+            },
+            'takeLedger': {
+                text: ["明白了。账本和水都拿上了。总觉得这个名字背后有鬼。"],
+                 action: () => {
+                    gameState.flags.knowsChangJingHuang = true;
+                    gameState.inventory.push('采购账本');
+                    updateStatus();
+                },
+                choices: [
+                    { text: "很好，现在去走廊。", nextScene: 'mainCorridor' }
+                ]
+            },
+            'store_exit': {
+                text: [ "水拿上了。我们走吧。" ],
+                choices: [
+                    { text: "去走廊。", nextScene: 'mainCorridor' }
+                ]
+            },
+            'mainCorridor': {
+                text: [
+                    "我回到大厅，现在正沿着走廊走。",
+                    "走廊两边有几个房间。左边是'教室'，右边是'洗手间'。走廊尽头好像是'操场'的出口，我能闻到一股...非常难闻的味道从那边飘过来。",
+                    "我的辐射探测器读数在上升。"
+                ],
+                action: () => {
+                    gameState.radiation += 10;
+                    updateStatus();
+                },
+                choices: [
+                    { text: "进教室看看。也许有地图或者药品。", nextScene: 'enterClassroom' },
+                    { text: "洗手间就免了。去操场看看味道的来源。", nextScene: 'goToPlayground' },
+                ]
+            },
+            'enterClassroom': {
+                text: [
+                    "教室里一团糟，桌椅东倒西歪。",
+                    "我在一个倒下的书架里翻找...找到一个急救盒！",
+                    "等等...急救盒下面，还有一本小小的日记本，封面画着一朵歪歪扭扭的向日葵。"
+                ],
+                action: () => {
+                    gameState.inventory.push('止痛药');
+                    gameState.inventory.push('绷带');
+                    updateStatus();
+                },
+                choices: [
+                    { text: "先收好急救盒。然后，看看日记里写了什么。", nextScene: 'readDiary' },
+                    { text: "日记不重要，把急救盒里的东西拿上就走。", nextScene: 'classroom_afterSearch' }
+                ]
+            },
+            'readDiary': {
+                text: [
+                    "好的...我翻开日记...字迹很稚嫩...",
+                    "'今天又是打针和吃‘聪明豆’的日子。老师说这是为了让我们更健康，但我的头好痛。汤米最近总是很生气，他把玩具都弄坏了，还抓伤了莉莉。老师把他带走了，说要去‘特别关照室’。我有点怕。'"
+                ],
+                specialClass: 'diary-entry',
+                 action: () => {
+                    gameState.flags.foundDiary = true;
+                },
+                choices: [
+                    { text: "这...这根本不是学校。收好日记，我们必须搞清楚真相。", nextScene: 'takeDiary' },
+                    { text: "太令人不安了。把日记放回去，我们离开这里。", nextScene: 'classroom_afterSearch' }
+                ]
+            },
+            'takeDiary': {
+                text: ["日记收好了。"],
+                 action: () => {
+                    gameState.inventory.push('孩子的日记');
+                    updateStatus();
+                },
+                choices: [
+                    { text: "我们走。", nextScene: 'classroom_afterSearch' }
+                ]
+            },
+            'classroom_afterSearch': {
+                text: [
+                    "我的心跳得很快...这里太不对劲了。",
+                    "现在我感觉我们面对的不是简单的核事故。接下来去哪里？"
+                ],
+                choices: [
+                    { text: "去操场那边看看，但务必小心那股味道。", nextScene: 'goToPlayground' },
+                    { text: "去走廊另一头看看，远离操场的臭味。", nextScene: 'exploreFirstFloor' }
+                ]
+            },
+            'goToPlayground': {
+                text: [
+                    "天哪...我一打开通往操场的门，那股味道就扑面而来...太恶心了，我差点吐出来。",
+                    "操场上...长满了奇怪的、发着微光的植物。辐射探测器的警报声变得非常尖锐。",
+                    "我感觉皮肤刺痛，头也开始疼了。"
+                ],
+                action: () => {
+                    gameState.health -= 15;
+                    gameState.radiation += 25;
+                    updateStatus();
+                },
+                choices: [
+                    { text: "快离开那里！辐射太强了！", nextScene: 'playground_retreat' },
+                    { text: "坚持住！看看有没有队员留下的踪迹！", nextScene: 'playground_search' }
+                ]
+            },
+            'playground_retreat': {
+                text: [
+                    "收到！我正在后退...已经回到走廊了。",
+                    "咳咳...感觉好多了。那地方太可怕了。"
+                ],
+                choices: [
+                    { text: "你做得对。我们不能冒险。探索一下一楼的其他地方。", nextScene: 'exploreFirstFloor' },
+                    { text: "先回教室休息一下，恢复状态。", nextScene: 'restInClassroom' }
+                ]
+            },
+            'restInClassroom': {
+                text: [ "好主意。回到教室感觉安全多了。我休息了几分钟，呼吸顺畅多了。" ],
+                 action: () => {
+                    gameState.health = Math.min(100, gameState.health + 5);
+                    updateStatus();
+                },
+                choices: [
+                    { text: "很好，现在去走廊另一头看看。", nextScene: 'exploreFirstFloor' },
+                    { text: "既然安全，再仔细搜搜教室。", nextScene: 'searchClassroomAgain' }
+                ]
+            },
+            'searchClassroomAgain': {
+                text: [
+                    "我又翻了一遍，还是一样。除了灰尘和破烂的书，没什么了。",
+                    "哦，墙上有些孩子们的画。画的都是向日葵...但有些向日葵的'脸'，被画成了哭泣和尖叫的样子。"
+                ],
+                choices: [
+                    { text: "这些孩子...我们走吧。", nextScene: 'exploreFirstFloor' },
+                    { text: "把画也带上，作为证据。", nextScene: 'takeDrawings' }
+                ]
+            },
+            'takeDrawings': {
+                text: ["...我不知道这有什么用，但我撕下了一张。收好了。"],
+                action: () => {
+                    gameState.inventory.push('孩子们的画');
+                    updateStatus();
+                },
+                choices: [
+                    { text: "很好，我们走。", nextScene: 'exploreFirstFloor' },
+                    { text: "但愿这能有用。", nextScene: 'exploreFirstFloor' }
+                ]
+            },
+            'playground_search': {
+                text: [
+                    "我...我尽力...我在操场中央看到一个奇怪的金属舱门，半开着。",
+                    "但是...我的视野开始模糊了...我...我撑不住了..."
+                ],
+                action: () => {
+                    gameState.health -= 40;
+                    gameState.radiation += 30;
+                    updateStatus();
+                },
+                choices: [
+                    { text: "回来！林峰！别管那个舱门！", nextScene: 'death_radiation' },
+                    { text: "（使用止痛药）快用止痛药！它能帮你顶住！", nextScene: 'playground_painkiller', condition: () => gameState.inventory.includes('止痛药')}
+                ]
+            },
+            'playground_painkiller': {
+                text: [
+                    "用了...药效上来了，疼痛减轻了...我能再靠近一点...",
+                    "舱门上刻着一个徽章...一个被太阳包围的烧瓶...我记下了...",
+                    "不行...我得撤了...辐射太强了..."
+                ],
+                action: () => {
+                    gameState.inventory = gameState.inventory.filter(item => item !== '止痛药');
+                    gameState.flags.sawHatchSymbol = true;
+                    gameState.health -= 20;
+                    gameState.radiation += 15;
+                    updateStatus();
+                },
+                choices: [
+                    { text: "做得好！快撤回来！", nextScene: 'playground_retreat' },
+                    { text: "再坚持一下！看看舱门能不能打开！", nextScene: 'tryHatch' }
+                ]
+            },
+            'tryHatch': {
+                text: [
+                    "我试试...呃...舱门纹丝不动，好像被卡住了。",
+                    "不行，我不能再待下去了！辐射计的读数要爆表了！我得撤了！"
+                ],
+                action: () => {
+                    gameState.health -= 15;
+                    gameState.radiation += 15;
+                    updateStatus();
+                },
+                choices: [
+                    { text: "明白，立刻撤退！", nextScene: 'playground_retreat' },
+                    { text: "别放弃！再试一次！", nextScene: 'death_radiation' }
+                ]
+            },
+            'exploreFirstFloor': {
+                text: [
+                    "在走廊的另一端，我发现了一个楼梯。旁边还有两扇门。",
+                    "一扇门上挂着'医务室'的牌子，但被一个很复杂的电子锁锁住了。",
+                    "另一扇门没有任何标记，但门缝里透出一种奇怪的蓝色光芒。感觉...很诡异。"
+                ],
+                choices: [
+                    { text: "试试看能不能打开医务室的锁。", nextScene: 'tryMedicalOffice' },
+                    { text: "调查那扇没有标记的神秘房门。", nextScene: 'mysteriousLab' }
+                ]
+            },
+             'mysteriousLab': {
+                text: [
+                    "我推开了这扇门...这里...是一个实验室。",
+                    "中央有一个巨大的玻璃容器，里面充满了液体，一些管子连接着它。容器里...好像有什么东西...但我看不清。",
+                    "墙边有一台终端机还亮着屏幕。"
+                ],
+                choices: [
+                    { text: "去看看终端机上写了什么。", nextScene: 'labTerminal' },
+                    { text: "离那个容器远点！先检查房间里有没有危险。", nextScene: 'lab_safeCheck' }
+                ]
+            },
+            'lab_safeCheck': {
+                text: ["房间里很安静，除了设备的嗡嗡声。辐射水平比走廊稍高，但比操场好多了。看起来暂时安全。"],
+                choices: [
+                    { text: "好吧，去看看终端机。", nextScene: 'labTerminal' },
+                    { text: "再仔细看看那个巨大的容器，里面到底是什么？", nextScene: 'inspectContainer'}
+                ]
+            },
+            'inspectContainer': {
+                text: [
+                    "我凑近了些...天...容器里是一个人形的轮廓，但它的四肢非常不协调，好像还在微微抽动。",
+                    "看到这个东西让我汗毛倒竖。我还是离它远点好。"
+                ],
+                choices: [
+                    { text: "太可怕了。快去看终端机，查清楚这到底是什么！", nextScene: 'labTerminal'},
+                    { text: "别管它了，我们还是先找出口吧。", nextScene: 'lab_findCode' }
+                ]
+            },
+            'labTerminal': {
+                text: [
+                    "终端机上显示着一份日志。",
+                    "'...实验体S-01对'阳光'辐射表现出超强适应性。细胞再生速度惊人...但伴随着不可控的攻击性...'",
+                    "'...我们失败了。污染已经失控。封锁协议启动。愿上帝怜悯我们...'"
+                ],
+                choices: [
+                    { text: "这印证了日记里的内容。这里就是源头。", nextScene: 'uncoverConspiracy', condition: () => gameState.flags.foundDiary },
+                    { text: "别管那么多了，快找找有没有开锁或者逃出去的办法！", nextScene: 'lab_findCode'}
+                ]
+            },
+            'uncoverConspiracy': {
+                getText: (state) => [
+                    "没错..." + (state.flags.foundDiary ? "日记里的'汤米'，可能就是这个'实验体S-01'。而'聪明豆'，就是他们的实验药物。" : "终端机里的记录提到了'实验体S-01'和实验药物..."),
+                    "我在终端机里继续搜索...",
+                    "找到了供应商记录...就是'昌景黄'！他提供的'营养膏'是实验体的主要食物来源！" + (state.flags.knowsChangJingHuang ? " 和我在商店账本上看到的一样！" : ""),
+                    "还有...我找到了项目负责人...一个叫'水王'的人。所有的报告都指向他。他对权力的痴迷，加上昌景黄对金钱的贪婪...他们把这里变成了地狱。",
+                    "这场辐射，就是为了掩盖这里发生的一切...一次故意的'大扫除'。",
+                    "这个地方...必须被摧毁。"
+                ],
+                choices: [
+                    { text: "终端机里有没有提到如何做到这一点？", nextScene: 'findFailsafe' },
+                    { text: "这些信息太重要了。有没有办法把数据下载下来？", nextScene: 'downloadData' }
+                ]
+            },
+            'downloadData':{
+                text:[
+                    "我找找...有个数据接口，但我没有任何存储设备...",
+                    "等等，我的个人通讯终端有存储功能！正在尝试下载...",
+                    "好了！关键日志和报告都下载下来了！如果我能出去，这就是他们的罪证！"
+                ],
+                action: () => {
+                    gameState.inventory.push('罪证数据');
+                    updateStatus();
+                },
+                choices: [
+                    { text: "干得漂亮！现在，找找摧毁这里的办法。", nextScene: 'findFailsafe'},
+                    { text: "很好！带着证据，我们想办法联系你的队伍。", nextScene: 'lab_findCode' }
+                ]
+            },
+            'findFailsafe': {
+                text: [
+                    "是的...有一份'最终净化协议'的文件。这看起来...像是一个高当量热压炸弹的自毁装置蓝图。",
+                    "我们可以用它把整个地方从地球上抹掉。但启动它，我自己也可能跑不掉。"
+                ],
+                choices: [
+                    { text: "我们不能让你冒这个险！先去医务室找找办法！", nextScene: 'tryMedicalOfficeFromLab' },
+                    { text: "这是唯一的办法。为了阻止他们，为了那些孩子。启动它。", nextScene: 'goToBombLocation' }
+                ]
+            },
+            'tryMedicalOfficeFromLab': {
+                text: [ "你说得对，或许医务室里有别的办法。终端机上有没有开锁的选项？" ],
+                 choices: [
+                    { text: "找找看。", nextScene: 'lab_findCode' },
+                    { text: "算了，风险太大。我们还是执行最终净化协议吧。", nextScene: 'goToBombLocation'}
+                ]
+            },
+             'lab_findCode': {
+                text: [
+                    "找到了！日志最后提到了一个备用通讯协议，激活码是... 'HOPE'。",
+                    "旁边还有一个选项：'激活医务室紧急开锁'。",
+                ],
+                choices: [
+                    { text: "激活医务室开锁！", nextScene: 'unlockMedicalOffice' },
+                    { text: "先试试那个备用通讯协议，看看能不能联系上外界！", nextScene: 'tryBackupComms'}
+                ]
+            },
+            'tryBackupComms':{
+                text:[
+                    "正在尝试激活...协议启动了，但是...全是噪音。",
+                    "滋...滋...‘他们都死了’...滋...‘跑’...然后就断了。",
+                    "这好像是以前的求救信号...听得我心里发毛。"
+                ],
+                choices: [
+                    { text: "别管了，只是过去的亡魂。打开医务室的锁。", nextScene: 'unlockMedicalOffice'},
+                    { text: "这很重要。再听听，看有没有别的线索。", nextScene: 'listenAgain'}
+                ]
+            },
+            'listenAgain': {
+                text: [
+                    "我重新调整了频率...还是一样的噪音和片段...",
+                    "没什么新发现了，协调员。只是在浪费时间。"
+                ],
+                choices: [
+                    { text: "好吧。打开医务室的锁。", nextScene: 'unlockMedicalOffice'},
+                    { text: "也许有加密信息。算了，还是先开锁吧。", nextScene: 'unlockMedicalOffice'}
+                ]
+            },
+             'unlockMedicalOffice': {
+                text: [ "正在操作...好了！我听到走廊那边的医务室传来一声轻响，锁好像开了！" ],
+                action: () => { gameState.flags.medicalOfficeUnlocked = true; },
+                choices: [
+                    { text: "太棒了！快去医务室！", nextScene: 'enterMedicalOffice' },
+                    { text: "很好。离开实验室前，再检查一遍有没有遗漏什么。", nextScene: 'finalCheckLab'}
+                ]
+            },
+            'finalCheckLab': {
+                text: ["我快速扫了一眼，除了那台终端机和可怕的容器，没有别的东西了。我们走吧。"],
+                choices: [
+                    { text: "好的，去医务室。", nextScene: 'enterMedicalOffice'},
+                    { text: "你确定？再看看那个容器。", nextScene: 'inspectContainerAgain' }
+                ]
+            },
+            'inspectContainerAgain': {
+                text: [
+                    "我又看了一眼...没什么变化，还是那个扭曲的人形。只是看着就让我不舒服。",
+                    "我们快走吧。"
+                ],
+                choices: [
+                    { text: "好吧，离开这里，去医务室。", nextScene: 'enterMedicalOffice' },
+                    { text: "也许可以砸开它？", nextScene: 'smashContainer' }
+                ]
+            },
+            'smashContainer': {
+                text: [
+                    "你疯了吗？！我才不...等等，容器好像裂了...",
+                    "（玻璃破碎声，液体流出的声音）",
+                    "（一声不似人类的尖啸，然后是通讯中断的忙音）"
+                ],
+                ending: { title: "作茧自缚", message: "你释放了实验室里最恐怖的存在。好奇心杀死了林峰，也可能害死了更多人。" }
+            },
+            'tryMedicalOffice': {
+                condition: () => gameState.flags.medicalOfficeUnlocked,
+                choices: [
+                    { text: "（医务室的门已经开了，直接进去。）", nextScene: 'enterMedicalOffice' }
+                ],
+                fallbackScene: 'medicalOfficeLocked'
+            },
+            'medicalOfficeLocked': {
+                text: [
+                    "这个锁太复杂了，我完全打不开。上面有个小键盘，好像需要密码或者卡片。",
+                    "我没办法进去。"
+                ],
+                choices: [
+                    { text: "没办法了。我们再想想别的出路。", nextScene: 'stuck' },
+                    { text: "看看能不能用蛮力把锁砸开？", nextScene: 'smashLock'}
+                ]
+            },
+            'smashLock': {
+                text: [
+                    "我找了根铁管...呃啊！",
+                    "（一声巨响，然后是林峰的痛哼）",
+                    "不行...锁没事，我的手腕好像扭了...真疼。"
+                ],
+                action: () => {
+                    gameState.health -= 10;
+                    updateStatus();
+                },
+                choices: [
+                    { text: "别做傻事了！我们再想别的办法。", nextScene: 'stuck'},
+                    { text: "用止痛药，然后我们再想办法。", nextScene: 'stuck_painkiller', condition: () => gameState.inventory.includes('止痛药')}
+                ]
+            },
+            'stuck_painkiller': {
+                text: [ "好吧...用了药，手腕感觉好多了。但我还是打不开锁。" ],
+                action: () => {
+                    gameState.inventory = gameState.inventory.filter(item => item !== '止痛药');
+                    updateStatus();
+                },
+                choices: [
+                    { text: "再想想，一定有别的路。", nextScene: 'stuck' },
+                    { text: "也许我们可以回去实验室找线索？", nextScene: 'mysteriousLab' }
+                ]
+            },
+            'enterMedicalOffice': {
+                 text: [
+                    "我进来了。这里很整洁，不像别的地方。",
+                    "架子上有很多药品。我找到了...抗辐射注射剂！还有一套完整的急救包！",
+                    "墙上有一部紧急通讯终端！看起来还能用！"
+                ],
+                action: () => {
+                     if (!gameState.inventory.includes('抗辐射注射剂')) gameState.inventory.push('抗辐射注射剂');
+                     gameState.health = 100;
+                     updateStatus();
+                },
+                choices: [
+                    { text: "用通讯终端联系你的队伍！快！", nextScene: 'ending_contactTeam' },
+                    { text: "太好了！现在我们有资本去执行‘最终净化协议’了。", nextScene: 'goToBombLocationFromOffice', condition: () => gameState.flags.foundDiary}
+                ]
+            },
+            'goToBombLocationFromOffice': {
+                text: ["你说得对，协调员。有了这些补给，我更有把握了。为了那些孩子...我们去做个了断。"],
+                choices: [
+                    { text: "出发，去操场。", nextScene: 'goToBombLocation' },
+                    { text: "再确认一下计划。我们要怎么做？", nextScene: 'planRecap' }
+                ]
+            },
+            'planRecap': {
+                text: [
+                    "计划就是：去操场下的地下室，用密码'HOPE'启动装置，然后在我能跑多远跑多远。",
+                    "简单，直接，而且很可能回不来。但我准备好了。"
+                ],
+                choices: [
+                    { text: "我明白了。祝你好运，林峰。", nextScene: 'goToBombLocation' },
+                    { text: "等等，也许还有别的办法...", nextScene: 'reconsiderPlan' }
+                ]
+            },
+            'reconsiderPlan': {
+                text: [
+                    "别的办法？协调员，我们已经没有时间了。这是唯一能确保这个地方被彻底净化的方式。",
+                    "我意已决。"
+                ],
+                choices: [
+                    { text: "...好吧。按计划行事。", nextScene: 'goToBombLocation' },
+                    { text: "我尊重你的决定。", nextScene: 'goToBombLocation' }
+                ]
+            },
+            'stuck': {
+                text: [
+                    "我被困住了...所有的路都试过了。",
+                    "辐射越来越强了，我感觉越来越虚弱...",
+                    "对不起，协调员...我...我可能撑不下去了..."
+                ],
+                choices: [
+                     { text: "振作起来，林峰！一定还有办法！", nextScene: 'death_despair' },
+                     { text: "用掉止痛药，至少能让你舒服一点。", nextScene: 'death_despair_comfort', condition: () => gameState.inventory.includes('止痛药')}
+                ]
+            },
+             'death_despair_comfort':{
+                text: [
+                    "好吧...我用了...",
+                    "疼痛是减轻了...但绝望...还是...包裹着我...",
+                    "（通讯器传来最后一声微弱的呼吸，然后归于沉寂）"
+                ],
+                ending: { title: "平静的绝望", message: "在找不到出路的情况下，你至少让他没有在痛苦中死去。但这依然是终点。" }
+             },
+            'goToBombLocation': {
+                text: [
+                    "我明白了。",
+                    "蓝图显示，自毁装置的起爆点就在操场中央那个金属舱门下面。我得回到那个高辐射区域...",
+                    "我该怎么做？"
+                ],
+                choices: [
+                    { text: "（使用抗辐射注射剂）现在就用掉它，能保证你的安全。", nextScene: 'useInjectorAndGo', condition: () => gameState.inventory.includes('抗辐射注射剂') },
+                    { text: "硬闯过去。我们没时间了。", nextScene: 'armTheBomb' }
+                ]
+            },
+            'useInjectorAndGo': {
+                text: [
+                    "收到。正在注射抗辐射药剂...嘶...好了。",
+                    "辐射探测器的警报声消失了。我现在感觉很好，充满了力量。我准备好了。",
+                    "正在前往操场地下室。"
+                ],
+                action: () => {
+                    gameState.inventory = gameState.inventory.filter(item => item !== '抗辐射注射剂');
+                    gameState.radiation = Math.max(0, gameState.radiation - 50);
+                    updateStatus();
+                },
+                choices: [
+                    { text: "小心行事。", nextScene: 'armTheBomb' },
+                    { text: "时间紧迫，全速前进！", nextScene: 'armTheBomb'}
+                ]
+            },
+            'armTheBomb': {
+                text: [
+                    "我到了...舱门下面是一个地下室。这里的空气凝重得可怕，辐射探测器又开始尖叫了。",
+                    "找到了...装置在这里。需要输入激活码...就是之前终端机上看到的...'HOPE'。",
+                    "我输入了...（哔哔哔）系统启动了。屏幕上显示'净化程序启动'。",
+                    "倒计时...只有3分钟！我必须马上离开这里！警报响了！"
+                ],
+                action: () => {
+                    gameState.health -= 15;
+                    gameState.radiation += 40;
+                    updateStatus();
+                },
+                choices: [
+                    { text: "快跑！林峰！别回头！", nextScene: 'escapeSequence' },
+                    { text: "找个坚固的地方躲起来！也许你能撑过爆炸！", nextScene: 'ending_sacrifice'}
+                ]
+            },
+            'escapeSequence': {
+                text: [
+                    "（背景传来刺耳的警报和建筑结构不稳的断裂声）",
+                    "我正在往外跑！楼梯...走廊...灰尘和碎石不断掉下来！",
+                    "回到大厅了！出口就在眼前！我冲出去了！"
+                ],
+                choices: [
+                    { text: "继续跑！不要停！", nextScene: 'ending_destroySunshine' },
+                    { text: "太好了！现在联系你的队伍！", nextScene: 'ending_destroySunshine'}
+                ]
+            },
+
+            // 结局
+            'death_radiation': {
+                text: ["...信号...丢失...", "（通讯彻底中断）"],
+                ending: { title: "辐射过载", message: "暴露在操场高强度的辐射下，他的身体崩溃了。冒险精神有时需要付出代价。" }
+            },
+            'death_despair': {
+                text: ["（通讯器传来最后一声微弱的呼吸，然后归于沉寂）"],
+                ending: { title: "绝望而终", message: "在找不到出路和希望的情况下，他的意志崩溃了，最终在孤独中死去。" }
+            },
+            'ending_contactTeam': {
+                text: [
+                    "正在尝试连接...",
+                    "......",
+                    "通了！是队长！他们就在学校外面！他们正在启动救援信标，让我过去！",
+                    "我得救了！协调员，谢谢你！真的...谢谢你！没有你我绝对撑不到现在！"
+                ],
+                ending: { title: "成功获救", message: "通过谨慎的判断和正确的指引，你成功帮助林峰找到了生路，并与他的队伍汇合。任务完成。" }
+            },
+            'ending_destroySunshine': {
+                text: [
+                    "我跑出了足够远的距离...身后传来一声震耳欲聋的巨响...大地都在震动...",
+                    "我回头看，一朵小型的蘑菇云升起，吞没了那所罪恶的学校。",
+                    "一切都结束了。那些罪恶的秘密，和'水王'、'昌景黄'的野心一起，被埋葬在了火焰里。",
+                    "我...我做到了。协调员，我为那些孩子们报仇了。现在...我要想办法活下去。",
+                    "（通讯器信号开始减弱）...谢谢你...一直...陪着我..."
+                ],
+                ending: { title: "炸毁阳光", message: "你揭露了恐怖的真相，并亲手将罪恶的根源从大地上抹去。虽然未来依然未知，但你为那些无辜的灵魂带来了最终的审判。" }
+            },
+             'ending_sacrifice': {
+                text: [
+                    "躲起来？来不及了...我听到爆炸装置的嗡鸣声越来越响...",
+                    "不过...这样也好。能和这些罪恶一起消失，也算是一种解脱。",
+                    "协调员，如果...你能收到这段最后的信息，告诉他们...这里发生的一切...",
+                    "（一声巨响，然后是永恒的寂静）"
+                ],
+                ending: { title: "英雄的牺牲", message: "他没能逃出爆炸，但他的行动摧毁了邪恶的温床。他用自己的生命，完成了最后的净化。" }
+            }
+
+        };
+
+
+        function showMessage(text, sender, specialClass = '') {
+            const messageBubble = document.createElement('div');
+            let classList = `message-bubble ${sender === 'character' ? 'character-message' : 'player-message'}`;
+            if (specialClass) {
+                classList += ` ${specialClass}`;
+            }
+            messageBubble.className = classList;
+            messageBubble.textContent = text;
+            chatContainer.appendChild(messageBubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.innerHTML = `<span></span><span></span><span></span>`;
+            indicator.id = 'typing';
+            chatContainer.appendChild(indicator);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function playScene(sceneId) {
+            choicesContainer.innerHTML = '';
+            
+            let scene = story[sceneId];
+            gameState.currentScene = sceneId;
+
+            if (!scene) {
+                console.error(`Scene with id "${sceneId}" not found!`);
+                return;
+            }
+
+            // This is a simple fix for a potential loop. A better system would be needed for complex games.
+            if(gameState.flags.visited_scenes && gameState.flags.visited_scenes[sceneId] > 2) {
+                scene = story['stuck'];
+            } else {
+                 if(!gameState.flags.visited_scenes) gameState.flags.visited_scenes = {};
+                 gameState.flags.visited_scenes[sceneId] = (gameState.flags.visited_scenes[sceneId] || 0) + 1;
+            }
+
+
+            if (scene.condition && !scene.condition()) {
+                scene = story[scene.fallbackScene];
+            }
+
+
+            if (scene.action) {
+                const result = scene.action();
+                if (result && result.text && result.nextScene) {
+                    scene = { ...scene, ...result };
+                }
+            }
+            updateStatus();
+
+            const messages = scene.getText ? scene.getText(gameState) : scene.text;
+            const specialClass = scene.specialClass || '';
+            let messageIndex = 0;
+
+            function showNextMessage() {
+                if (messageIndex < messages.length) {
+                    showTypingIndicator();
+                    const delay = 1500 + Math.random() * 1500;
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        showMessage(messages[messageIndex], 'character', specialClass);
+                        messageIndex++;
+                        setTimeout(showNextMessage, 500); 
+                    }, delay);
+                } else {
+                    if (scene.choices) {
+                        displayChoices(scene.choices);
+                    } else if (scene.ending) {
+                        setTimeout(() => showEnding(scene.ending), 1000);
+                    }
+                }
+            }
+            showNextMessage();
+        }
+
+        function displayChoices(choices) {
+            choicesContainer.innerHTML = '';
+            const validChoices = choices.filter(choice => choice.condition === undefined || choice.condition());
+
+            if (validChoices.length === 0) {
+                 playScene('stuck'); 
+                 return;
+            }
+
+            validChoices.forEach(choice => {
+                const button = document.createElement('button');
+                button.textContent = choice.text;
+                button.className = "w-full bg-gray-700 hover:bg-gray-600 text-gray-200 font-semibold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105";
+                button.onclick = () => {
+                    choicesContainer.innerHTML = '';
+                    showMessage(choice.text, 'player');
+                    setTimeout(() => playScene(choice.nextScene), 500);
+                };
+                choicesContainer.appendChild(button);
+            });
+        }
+        
+        function updateStatus() {
+            gameState.health = Math.max(0, Math.min(100, gameState.health));
+            gameState.radiation = Math.max(0, Math.min(100, gameState.radiation));
+
+            healthBar.style.width = `${gameState.health}%`;
+            if (gameState.health > 60) {
+                healthBar.className = 'bg-green-500 h-2.5 rounded-full progress-bar';
+            } else if (gameState.health > 30) {
+                healthBar.className = 'bg-yellow-500 h-2.5 rounded-full progress-bar';
+            } else {
+                healthBar.className = 'bg-red-600 h-2.5 rounded-full progress-bar';
+            }
+
+            radiationBar.style.width = `${gameState.radiation}%`;
+             if (gameState.radiation < 40) {
+                radiationBar.className = 'bg-yellow-500 h-2.5 rounded-full progress-bar';
+            } else if (gameState.radiation < 75) {
+                radiationBar.className = 'bg-orange-500 h-2.5 rounded-full progress-bar';
+            } else {
+                radiationBar.className = 'bg-red-600 h-2.5 rounded-full progress-bar';
+            }
+
+            if (gameState.inventory.length > 0) {
+                inventoryDisplay.textContent = gameState.inventory.join(', ');
+            } else {
+                inventoryDisplay.textContent = '空';
+            }
+
+            if(gameState.health <= 0 && !story[gameState.currentScene]?.ending) {
+                 playScene('death_despair');
+            }
+             if(gameState.radiation >= 100 && !story[gameState.currentScene]?.ending) {
+                 playScene('death_radiation');
+            }
+        }
+
+        function showEnding(ending) {
+            modalTitle.textContent = ending.title;
+            modalMessage.textContent = ending.message;
+            modalOverlay.classList.remove('hidden');
+            modalOverlay.style.opacity = 1;
+        }
+
+        // 游戏开始
+        restartGame();
+
+    </script>
+</body>
 </html>
