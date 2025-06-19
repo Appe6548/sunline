@@ -1,0 +1,200 @@
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #00ff00;
+}
+
+.app-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #00ff00;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ff00;
+  margin-right: 8px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.app-main {
+  flex: 1;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.game-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.app-footer {
+  padding: 10px 20px;
+  border-top: 1px solid #00ff00;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.victory-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #00ff00;
+}
+
+.victory-screen h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px #00ff00;
+}
+
+.victory-screen p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.settings-button-header {
+  background: none;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.settings-button-header:hover {
+  background: rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  transform: rotate(90deg);
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .app {
+    height: 100vh;
+    height: 100dvh; /* 动态视口高度，避免移动端地址栏问题 */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-header {
+    padding: 10px 15px;
+    flex-shrink: 0;
+  }
+
+  .app-header h1 {
+    font-size: 1.1rem;
+    margin-bottom: 3px;
+  }
+
+  .connection-status {
+    font-size: 0.8rem;
+  }
+
+  .app-main {
+    flex: 1;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .game-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* 在移动端隐藏桌面状态面板 */
+  .game-container > *:first-child {
+    display: none;
+  }
+
+  .app-footer {
+    padding: 8px 15px;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+}
+
+/* 小屏幕手机优化 */
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 1rem;
+  }
+
+  .connection-status {
+    font-size: 0.7rem;
+  }
+
+  .game-container {
+    grid-template-rows: minmax(180px, 35%) 1fr;
+    gap: 8px;
+  }
+
+  .app-main {
+    padding: 8px;
+  }
+}
+
+/* 横屏模式优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+  .game-container {
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
+  }
+
+  .app-header {
+    padding: 8px 15px;
+  }
+
+  .app-header h1 {
+    font-size: 1rem;
+  }
+}

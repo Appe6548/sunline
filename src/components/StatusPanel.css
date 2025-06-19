@@ -1,0 +1,338 @@
+.status-panel {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #00ff00;
+  border-radius: 8px;
+  padding: 20px;
+  height: fit-content;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.panel-section {
+  margin-bottom: 25px;
+}
+
+.panel-section:last-child {
+  margin-bottom: 0;
+}
+
+.panel-title {
+  color: #00ff00;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px #00ff00;
+  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  padding-bottom: 5px;
+}
+
+.status-item {
+  margin-bottom: 15px;
+}
+
+.status-item label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.status-bar {
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.status-fill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: 10px;
+}
+
+.status-value {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.location-info {
+  background: rgba(0, 255, 0, 0.05);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.location-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.location-radiation {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.inventory {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.empty-inventory {
+  text-align: center;
+  opacity: 0.6;
+  font-style: italic;
+  padding: 20px;
+}
+
+.inventory-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 5px;
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  border-radius: 3px;
+}
+
+.use-button, .move-button {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.use-button:hover, .move-button:hover {
+  background: rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.discovered-locations {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.location-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 5px;
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  border-radius: 3px;
+}
+
+.location-item.current {
+  background: rgba(0, 255, 0, 0.15);
+  border-color: #00ff00;
+}
+
+.system-info {
+  background: rgba(0, 255, 0, 0.05);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.status-good {
+  color: #00ff00;
+}
+
+.status-bad {
+  color: #ff4444;
+}
+
+/* 滚动条样式 */
+.status-panel::-webkit-scrollbar,
+.inventory::-webkit-scrollbar,
+.discovered-locations::-webkit-scrollbar {
+  width: 6px;
+}
+
+.status-panel::-webkit-scrollbar-track,
+.inventory::-webkit-scrollbar-track,
+.discovered-locations::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.status-panel::-webkit-scrollbar-thumb,
+.inventory::-webkit-scrollbar-thumb,
+.discovered-locations::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.5);
+  border-radius: 3px;
+}
+
+.status-panel::-webkit-scrollbar-thumb:hover,
+.inventory::-webkit-scrollbar-thumb:hover,
+.discovered-locations::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 0, 0.7);
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .status-panel {
+    padding: 15px;
+    max-height: none;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .panel-section {
+    margin-bottom: 20px;
+  }
+
+  .panel-title {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .status-bar {
+    height: 24px;
+  }
+
+  .inventory-item, .location-item {
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+
+  .use-button, .move-button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    min-width: 60px;
+    touch-action: manipulation; /* 优化触摸响应 */
+  }
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .status-panel {
+    padding: 15px;
+    max-height: none;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .panel-section {
+    margin-bottom: 20px;
+  }
+
+  .panel-title {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .status-bar {
+    height: 24px;
+  }
+
+  .status-value {
+    font-size: 0.9rem;
+  }
+
+  .location-info {
+    padding: 12px;
+  }
+
+  .location-name {
+    font-size: 1rem;
+  }
+
+  .inventory-item, .location-item {
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+
+  .use-button, .move-button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    min-width: 60px;
+  }
+
+  .system-info {
+    padding: 12px;
+  }
+
+  .info-item {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+/* 小屏幕手机优化 */
+@media (max-width: 480px) {
+  .status-panel {
+    padding: 12px;
+  }
+
+  .panel-title {
+    font-size: 0.95rem;
+  }
+
+  .status-bar {
+    height: 20px;
+  }
+
+  .status-value {
+    font-size: 0.8rem;
+  }
+
+  .inventory-item, .location-item {
+    padding: 10px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .use-button, .move-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .location-info {
+    padding: 10px;
+  }
+
+  .system-info {
+    padding: 10px;
+  }
+}
+
+/* 横屏模式优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+  .status-panel {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+
+  .panel-section {
+    margin-bottom: 15px;
+  }
+
+  .inventory, .discovered-locations {
+    max-height: 120px;
+  }
+}

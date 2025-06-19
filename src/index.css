@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #00ff00;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 终端风格的文字效果 */
+.terminal-text {
+  text-shadow: 0 0 5px #00ff00;
+  font-family: 'Courier New', monospace;
+}
+
+/* 闪烁光标效果 */
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* 辐射警告颜色 */
+.radiation-warning {
+  color: #ff6b00;
+  text-shadow: 0 0 5px #ff6b00;
+}
+
+.health-critical {
+  color: #ff0000;
+  text-shadow: 0 0 5px #ff0000;
+}
+
+/* 按钮样式 */
+.choice-button {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+}
+
+.choice-button:hover {
+  background: rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.choice-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00cc00;
+}
+
+/* 移动端触摸优化 */
+@media (max-width: 768px) {
+  /* 防止双击缩放 */
+  * {
+    touch-action: manipulation;
+  }
+
+  /* 优化触摸目标大小 */
+  button, .choice-button, .use-button, .move-button {
+    min-height: 44px; /* iOS推荐的最小触摸目标 */
+    min-width: 44px;
+  }
+
+  /* 移除点击高亮 */
+  button, .choice-button {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* 优化滚动性能 */
+  .messages-list, .status-panel {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* 移动端专用的视觉反馈 */
+  .choice-button:active {
+    background: rgba(0, 255, 0, 0.3) !important;
+    transform: scale(0.98);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+  }
+
+  .use-button:active, .move-button:active {
+    background: rgba(0, 255, 0, 0.3) !important;
+    transform: scale(0.95);
+  }
+}
+
+/* 移动端字体优化 */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .terminal-text {
+    text-shadow: 0 0 3px #00ff00;
+  }
+}
+
+/* 确保在移动设备上正确显示 */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari 特定优化 */
+  .app {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+}

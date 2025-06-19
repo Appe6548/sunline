@@ -1,0 +1,2419 @@
+  immediate_treatment: {
+    id: 'immediate_treatment',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  emergency_reserve: {
+    id: 'emergency_reserve',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  store_continued_search: {
+    id: 'store_continued_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  selective_items_taken: {
+    id: 'selective_items_taken',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  all_items_taken: {
+    id: 'all_items_taken',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  expired_items_left: {
+    id: 'expired_items_left',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  document_search: {
+    id: 'document_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  laboratory_investigation: {
+    id: 'laboratory_investigation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  admin_records_check: {
+    id: 'admin_records_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  safe_rooms_check: {
+    id: 'safe_rooms_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  radio_signal_tracking: {
+    id: 'radio_signal_tracking',
+    speaker: 'survivor',
+    message: '我尝试了一些通讯方法。虽然信号不稳定，但我获得了一些有用的信息。',
+    choices: [
+      { id: 'continue_communication', text: '继续尝试通讯', nextScenario: 'outside_contact' },
+      { id: 'focus_on_mission', text: '专注于任务', nextScenario: 'exploration_convergence' },
+      { id: 'seek_better_signal', text: '寻找更好的信号', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  vending_machine_search: {
+    id: 'vending_machine_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  staff_area_exploration: {
+    id: 'staff_area_exploration',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  water_fountain_search: {
+    id: 'water_fountain_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  bottled_water_search: {
+    id: 'bottled_water_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  tap_water_test: {
+    id: 'tap_water_test',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  supply_mapping: {
+    id: 'supply_mapping',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  route_planning: {
+    id: 'route_planning',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  protection_enhancement: {
+    id: 'protection_enhancement',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  exposure_documentation: {
+    id: 'exposure_documentation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  health_alert_system: {
+    id: 'health_alert_system',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  safety_first_exploration: {
+    id: 'safety_first_exploration',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  emergency_supplies_acquired: {
+    id: 'emergency_supplies_acquired',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  expiration_check: {
+    id: 'expiration_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  thorough_freezer_search: {
+    id: 'thorough_freezer_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  sound_investigation_safe: {
+    id: 'sound_investigation_safe',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  warning_broadcast: {
+    id: 'warning_broadcast',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  microwave_heating: {
+    id: 'microwave_heating',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  alternative_heating: {
+    id: 'alternative_heating',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  illness_monitoring: {
+    id: 'illness_monitoring',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  preventive_medicine_search: {
+    id: 'preventive_medicine_search',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  risky_continuation: {
+    id: 'risky_continuation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  heat_source_search: {
+    id: 'heat_source_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  kitchen_safe_exploration: {
+    id: 'kitchen_safe_exploration',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  creature_tracking: {
+    id: 'creature_tracking',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  creature_avoidance_route: {
+    id: 'creature_avoidance_route',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  mutation_documentation: {
+    id: 'mutation_documentation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  threat_assessment: {
+    id: 'threat_assessment',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  quiet_retreat: {
+    id: 'quiet_retreat',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  barricade_setup: {
+    id: 'barricade_setup',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  escape_route_planning: {
+    id: 'escape_route_planning',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  observation_mode: {
+    id: 'observation_mode',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  weapon_familiarization: {
+    id: 'weapon_familiarization',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  better_weapon_search: {
+    id: 'better_weapon_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  armed_exploration: {
+    id: 'armed_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  immediate_medical_care: {
+    id: 'immediate_medical_care',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  medical_supplies_saved: {
+    id: 'medical_supplies_saved',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  medical_kit_inspection: {
+    id: 'medical_kit_inspection',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  supply_organization: {
+    id: 'supply_organization',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  quick_area_exit: {
+    id: 'quick_area_exit',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  safe_storage_search: {
+    id: 'safe_storage_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  courtyard_exploration: {
+    id: 'courtyard_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  escape_route_secured: {
+    id: 'escape_route_secured',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  exit_marking: {
+    id: 'exit_marking',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  exploration_planning: {
+    id: 'exploration_planning',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  map_guided_search: {
+    id: 'map_guided_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  basement_area_search: {
+    id: 'basement_area_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  shelter_sign_search: {
+    id: 'shelter_sign_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  admin_building_search: {
+    id: 'admin_building_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  hidden_door_search: {
+    id: 'hidden_door_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  tunnel_exploration: {
+    id: 'tunnel_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  window_entry: {
+    id: 'window_entry',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  keycard_search: {
+    id: 'keycard_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  entry_point_assessment: {
+    id: 'entry_point_assessment',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  radiation_monitoring: {
+    id: 'radiation_monitoring',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  laboratory_entry: {
+    id: 'laboratory_entry',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  medical_office_entry: {
+    id: 'medical_office_entry',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  restricted_area_exploration: {
+    id: 'restricted_area_exploration',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  safe_opening_attempt: {
+    id: 'safe_opening_attempt',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  hidden_documents_reading: {
+    id: 'hidden_documents_reading',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  office_items_collected: {
+    id: 'office_items_collected',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  storage_room_entry: {
+    id: 'storage_room_entry',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  better_location_search: {
+    id: 'better_location_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  temporary_shelter_setup: {
+    id: 'temporary_shelter_setup',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  radiation_mapping: {
+    id: 'radiation_mapping',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  safe_path_finding: {
+    id: 'safe_path_finding',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  high_radiation_investigation: {
+    id: 'high_radiation_investigation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  new_area_exploration: {
+    id: 'new_area_exploration',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  location_revisit: {
+    id: 'location_revisit',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  map_clue_following: {
+    id: 'map_clue_following',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  communication_repair: {
+    id: 'communication_repair',
+    speaker: 'survivor',
+    message: '我尝试了一些通讯方法。虽然信号不稳定，但我获得了一些有用的信息。',
+    choices: [
+      { id: 'continue_communication', text: '继续尝试通讯', nextScenario: 'outside_contact' },
+      { id: 'focus_on_mission', text: '专注于任务', nextScenario: 'exploration_convergence' },
+      { id: 'seek_better_signal', text: '寻找更好的信号', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  lighting_repair: {
+    id: 'lighting_repair',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  repair_materials_saved: {
+    id: 'repair_materials_saved',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  medication_rest: {
+    id: 'medication_rest',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  pain_relief_action: {
+    id: 'pain_relief_action',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  medication_monitoring: {
+    id: 'medication_monitoring',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  medical_inventory: {
+    id: 'medical_inventory',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  additional_medicine_search: {
+    id: 'additional_medicine_search',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  unmedicated_continuation: {
+    id: 'unmedicated_continuation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  medical_office_location: {
+    id: 'medical_office_location',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  first_aid_station_check: {
+    id: 'first_aid_station_check',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  teacher_area_search: {
+    id: 'teacher_area_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  hidden_room_discovery: {
+    id: 'hidden_room_discovery',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  maintenance_tunnel_exploration: {
+    id: 'maintenance_tunnel_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  basement_level_investigation: {
+    id: 'basement_level_investigation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  wound_bandaging: {
+    id: 'wound_bandaging',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  antiseptic_application: {
+    id: 'antiseptic_application',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  healing_monitoring: {
+    id: 'healing_monitoring',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  systematic_area_search: {
+    id: 'systematic_area_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  promising_area_focus: {
+    id: 'promising_area_focus',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  rapid_area_survey: {
+    id: 'rapid_area_survey',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  post_treatment_rest: {
+    id: 'post_treatment_rest',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  improved_health_action: {
+    id: 'improved_health_action',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  remaining_supplies_saved: {
+    id: 'remaining_supplies_saved',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  safe_treatment_location: {
+    id: 'safe_treatment_location',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  discomfort_continuation: {
+    id: 'discomfort_continuation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  condition_monitoring: {
+    id: 'condition_monitoring',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  clean_zone_establishment: {
+    id: 'clean_zone_establishment',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  extended_cleaning: {
+    id: 'extended_cleaning',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  base_establishment: {
+    id: 'base_establishment',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  storage_rooms_search: {
+    id: 'storage_rooms_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  utility_areas_check: {
+    id: 'utility_areas_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  service_corridor_exploration: {
+    id: 'service_corridor_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  next_move_planning: {
+    id: 'next_move_planning',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  rest_and_recovery: {
+    id: 'rest_and_recovery',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  findings_review: {
+    id: 'findings_review',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  track_investigation: {
+    id: 'track_investigation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  observation_post_setup: {
+    id: 'observation_post_setup',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  tracked_area_avoidance: {
+    id: 'tracked_area_avoidance',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  safe_route_following: {
+    id: 'safe_route_following',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  danger_zone_marking: {
+    id: 'danger_zone_marking',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  route_map_creation: {
+    id: 'route_map_creation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  situation_analysis: {
+    id: 'situation_analysis',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  exploration_priorities: {
+    id: 'exploration_priorities',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  escape_strategy_planning: {
+    id: 'escape_strategy_planning',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  stealth_exploration: {
+    id: 'stealth_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  area_testing: {
+    id: 'area_testing',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  escape_route_maintenance: {
+    id: 'escape_route_maintenance',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  priority_based_search: {
+    id: 'priority_based_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  room_by_room_search: {
+    id: 'room_by_room_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  key_area_focus: {
+    id: 'key_area_focus',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  lock_opened_success: {
+    id: 'lock_opened_success',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  partial_bypass: {
+    id: 'partial_bypass',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  alarm_triggered: {
+    id: 'alarm_triggered',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  full_speed_escape: {
+    id: 'full_speed_escape',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  covered_movement: {
+    id: 'covered_movement',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  distraction_creation: {
+    id: 'distraction_creation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  hidden_passage_opened: {
+    id: 'hidden_passage_opened',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  mechanism_examination: {
+    id: 'mechanism_examination',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  alternative_passage_search: {
+    id: 'alternative_passage_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  evacuation_route_following: {
+    id: 'evacuation_route_following',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  emergency_shelter_check: {
+    id: 'emergency_shelter_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  map_comparison: {
+    id: 'map_comparison',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  protective_equipment_search: {
+    id: 'protective_equipment_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  radiation_waiting: {
+    id: 'radiation_waiting',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  alternative_route_search: {
+    id: 'alternative_route_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  nearest_classroom_entry: {
+    id: 'nearest_classroom_entry',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  teachers_lounge_check: {
+    id: 'teachers_lounge_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  hallway_exploration: {
+    id: 'hallway_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  contamination_avoidance: {
+    id: 'contamination_avoidance',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  substance_investigation: {
+    id: 'substance_investigation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  playground_retreat: {
+    id: 'playground_retreat',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  situation_reassessment: {
+    id: 'situation_reassessment',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  different_approach: {
+    id: 'different_approach',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  outside_contact_retry: {
+    id: 'outside_contact_retry',
+    speaker: 'survivor',
+    message: '我尝试了一些通讯方法。虽然信号不稳定，但我获得了一些有用的信息。',
+    choices: [
+      { id: 'continue_communication', text: '继续尝试通讯', nextScenario: 'outside_contact' },
+      { id: 'focus_on_mission', text: '专注于任务', nextScenario: 'exploration_convergence' },
+      { id: 'seek_better_signal', text: '寻找更好的信号', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  fire_exit_check: {
+    id: 'fire_exit_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  service_exit_search: {
+    id: 'service_exit_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  basement_exit_exploration: {
+    id: 'basement_exit_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  administrative_files_check: {
+    id: 'administrative_files_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  security_office_search: {
+    id: 'security_office_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  power_system_check: {
+    id: 'power_system_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  equipment_search: {
+    id: 'equipment_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  safe_rest_return: {
+    id: 'safe_rest_return',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  action_planning: {
+    id: 'action_planning',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  nearby_exploration: {
+    id: 'nearby_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  health_check: {
+    id: 'health_check',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  mechanical_room_exploration: {
+    id: 'mechanical_room_exploration',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  utility_system_check: {
+    id: 'utility_system_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  maintenance_tools_search: {
+    id: 'maintenance_tools_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  rescue_planning: {
+    id: 'rescue_planning',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  location_details: {
+    id: 'location_details',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  escape_coordination: {
+    id: 'escape_coordination',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  escape_focus: {
+    id: 'escape_focus',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  solo_evidence_gathering: {
+    id: 'solo_evidence_gathering',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  alternative_help_search: {
+    id: 'alternative_help_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  maintenance_entrance_use: {
+    id: 'maintenance_entrance_use',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  entrance_safety_check: {
+    id: 'entrance_safety_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  other_options_search: {
+    id: 'other_options_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  patrol_waiting: {
+    id: 'patrol_waiting',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  eavesdropping_attempt: {
+    id: 'eavesdropping_attempt',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  evasion_planning: {
+    id: 'evasion_planning',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  self_revelation: {
+    id: 'self_revelation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  continued_tracking: {
+    id: 'continued_tracking',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  silent_retreat: {
+    id: 'silent_retreat',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  new_safe_area_search: {
+    id: 'new_safe_area_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  mission_continuation: {
+    id: 'mission_continuation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  tools_acquired: {
+    id: 'tools_acquired',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  extended_tool_search: {
+    id: 'extended_tool_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  shed_shelter: {
+    id: 'shed_shelter',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  soil_contamination_test: {
+    id: 'soil_contamination_test',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  clean_area_search: {
+    id: 'clean_area_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  wall_markings_investigation: {
+    id: 'wall_markings_investigation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  ground_traces_following: {
+    id: 'ground_traces_following',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  hidden_entrance_use: {
+    id: 'hidden_entrance_use',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  safe_door_entry: {
+    id: 'safe_door_entry',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  door_safety_check: {
+    id: 'door_safety_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  perimeter_search_continuation: {
+    id: 'perimeter_search_continuation',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  renewed_exploration: {
+    id: 'renewed_exploration',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  next_phase_planning: {
+    id: 'next_phase_planning',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  communication_status_check: {
+    id: 'communication_status_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  cautious_back_exit: {
+    id: 'cautious_back_exit',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  rapid_back_exit: {
+    id: 'rapid_back_exit',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  back_exit_scouting: {
+    id: 'back_exit_scouting',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  rescue_preparation: {
+    id: 'rescue_preparation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  evidence_gathering_while_waiting: {
+    id: 'evidence_gathering_while_waiting',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  area_securing: {
+    id: 'area_securing',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  complete_transmission: {
+    id: 'complete_transmission',
+    speaker: 'survivor',
+    message: '我尝试了一些通讯方法。虽然信号不稳定，但我获得了一些有用的信息。',
+    choices: [
+      { id: 'continue_communication', text: '继续尝试通讯', nextScenario: 'outside_contact' },
+      { id: 'focus_on_mission', text: '专注于任务', nextScenario: 'exploration_convergence' },
+      { id: 'seek_better_signal', text: '寻找更好的信号', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  priority_evidence_transmission: {
+    id: 'priority_evidence_transmission',
+    speaker: 'survivor',
+    message: '我尝试了一些通讯方法。虽然信号不稳定，但我获得了一些有用的信息。',
+    choices: [
+      { id: 'continue_communication', text: '继续尝试通讯', nextScenario: 'outside_contact' },
+      { id: 'focus_on_mission', text: '专注于任务', nextScenario: 'exploration_convergence' },
+      { id: 'seek_better_signal', text: '寻找更好的信号', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  backup_plan_preparation: {
+    id: 'backup_plan_preparation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  extraction_point_search: {
+    id: 'extraction_point_search',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  extraction_preparation: {
+    id: 'extraction_preparation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  communication_maintenance: {
+    id: 'communication_maintenance',
+    speaker: 'survivor',
+    message: '我尝试了一些通讯方法。虽然信号不稳定，但我获得了一些有用的信息。',
+    choices: [
+      { id: 'continue_communication', text: '继续尝试通讯', nextScenario: 'outside_contact' },
+      { id: 'focus_on_mission', text: '专注于任务', nextScenario: 'exploration_convergence' },
+      { id: 'seek_better_signal', text: '寻找更好的信号', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  protected_basement_entry: {
+    id: 'protected_basement_entry',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  basement_illumination: {
+    id: 'basement_illumination',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  basement_retreat: {
+    id: 'basement_retreat',
+    speaker: 'survivor',
+    message: '我采取了一些安全措施。在这种危险的环境中，谨慎总是明智的选择。',
+    choices: [
+      { id: 'maintain_safety', text: '保持安全状态', nextScenario: 'safety_convergence' },
+      { id: 'cautious_advance', text: '谨慎前进', nextScenario: 'exploration_convergence' },
+      { id: 'plan_next_move', text: '规划下一步', nextScenario: 'search_convergence' }
+    ]
+  },
+
+  careful_ventilation_crawl: {
+    id: 'careful_ventilation_crawl',
+    speaker: 'survivor',
+    message: '我处理了一些医疗问题。虽然条件有限，但我尽力照顾自己的健康。现在我感觉好一些了。',
+    choices: [
+      { id: 'continue_with_care', text: '小心地继续行动', nextScenario: 'medical_convergence' },
+      { id: 'rest_more', text: '多休息一会儿', nextScenario: 'safety_convergence' },
+      { id: 'resume_mission', text: '恢复任务', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  rapid_ventilation_passage: {
+    id: 'rapid_ventilation_passage',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  },
+
+  air_quality_check: {
+    id: 'air_quality_check',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  findings_analysis: {
+    id: 'findings_analysis',
+    speaker: 'survivor',
+    message: '我进行了一番搜索。虽然没有发现什么特别重要的东西，但我对这个区域有了更好的了解。',
+    choices: [
+      { id: 'continue_searching', text: '继续搜索', nextScenario: 'search_convergence' },
+      { id: 'move_to_new_area', text: '转移到新区域', nextScenario: 'area_selection' },
+      { id: 'analyze_findings', text: '分析发现', nextScenario: 'exploration_convergence' }
+    ]
+  },
+
+  final_preparation: {
+    id: 'final_preparation',
+    speaker: 'survivor',
+    message: '我继续我的行动。每一步都让我更接近目标，虽然路途充满挑战，但我必须坚持下去。',
+    choices: [
+      { id: 'keep_going', text: '继续前进', nextScenario: 'exploration_convergence' },
+      { id: 'reassess_situation', text: '重新评估情况', nextScenario: 'search_convergence' },
+      { id: 'find_safe_spot', text: '寻找安全点', nextScenario: 'safety_convergence' }
+    ]
+  }
