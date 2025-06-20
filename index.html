@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunline——文字冒险游戏</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
@@ -76,6 +77,25 @@
         #modal-overlay {
             transition: opacity 0.3s ease-in-out;
         }
+        #audio-toggle {
+            cursor: pointer;
+            user-select: none;
+            font-size: 16px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        #audio-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+        #audio-prompt {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 0.6; }
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen p-4">
@@ -86,7 +106,12 @@
         <div class="status-bar-bg p-4 border-b border-gray-700 rounded-t-2xl">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-lg font-bold text-gray-200">通讯频道: <span class="text-green-400">林峰</span></h2>
-                <span id="signal-strength" class="text-sm font-medium text-green-400">信号稳定</span>
+                <div class="flex items-center space-x-3">
+                    <button id="audio-toggle" class="text-sm text-gray-400 hover:text-white transition-colors" title="音效开关">
+                        🔊
+                    </button>
+                    <span id="signal-strength" class="text-sm font-medium text-green-400">信号稳定</span>
+                </div>
             </div>
             <div class="grid grid-cols-2 gap-4 text-sm">
                 <div>
@@ -129,6 +154,14 @@
         </div>
     </div>
 
+    <!-- 音效启用提示 -->
+    <div id="audio-prompt" class="fixed bottom-4 right-4 bg-gray-800 text-white p-3 rounded-lg shadow-lg text-sm opacity-90 transition-opacity duration-300">
+        <div class="flex items-center space-x-2">
+            <span>🔊</span>
+            <span>点击任意地方启用音效</span>
+        </div>
+    </div>
+
 
     <script>
         const chatContainer = document.getElementById('chat-container');
@@ -142,6 +175,277 @@
 
         let gameState = {};
 
+        // 使用 Tone.js 的音效系统
+        const soundState = {
+            isInitialized: false,
+            isEnabled: true,
+            synths: {},
+            loops: {},
+
+            // 初始化音效系统
+            async init() {
+                if (this.isInitialized) return;
+
+                try {
+                    // 显示加载提示
+                    const audioPrompt = document.getElementById('audio-prompt');
+                    if (audioPrompt) {
+                        audioPrompt.innerHTML = '<div class="flex items-center space-x-2"><span>🔊</span><span>正在初始化音效系统...</span></div>';
+                    }
+
+                    // 启动 Tone.js 音频上下文
+                    await Tone.start();
+
+                    // 创建各种合成器（"乐器"）
+                    this.createSynths();
+
+                    // 创建背景氛围音
+                    this.createAmbience();
+
+                    this.isInitialized = true;
+                    console.log('Tone.js 音效系统初始化成功');
+
+                    // 更新提示
+                    if (audioPrompt) {
+                        audioPrompt.innerHTML = '<div class="flex items-center space-x-2"><span>✅</span><span>音效系统已启用</span></div>';
+                        setTimeout(() => {
+                            audioPrompt.style.opacity = '0';
+                            setTimeout(() => audioPrompt.style.display = 'none', 300);
+                        }, 1500);
+                    }
+                } catch (error) {
+                    console.warn('音效系统初始化失败:', error);
+                    const audioPrompt = document.getElementById('audio-prompt');
+                    if (audioPrompt) {
+                        audioPrompt.innerHTML = '<div class="flex items-center space-x-2"><span>❌</span><span>音效系统初始化失败</span></div>';
+                        setTimeout(() => {
+                            audioPrompt.style.opacity = '0';
+                            setTimeout(() => audioPrompt.style.display = 'none', 300);
+                        }, 2000);
+                    }
+                }
+            },
+
+            // 创建各种合成器
+            createSynths() {
+                // 消息提示音 - 柔和的正弦波
+                this.synths.message = new Tone.Synth({
+                    oscillator: { type: "sine" },
+                    envelope: { attack: 0.1, decay: 0.3, sustain: 0.1, release: 0.5 }
+                }).toDestination();
+
+                // 选项点击音 - 清脆的方波
+                this.synths.select = new Tone.Synth({
+                    oscillator: { type: "square" },
+                    envelope: { attack: 0.01, decay: 0.1, sustain: 0, release: 0.1 }
+                }).toDestination();
+
+                // 发现物品音 - 明亮的三角波
+                this.synths.discover = new Tone.Synth({
+                    oscillator: { type: "triangle" },
+                    envelope: { attack: 0.05, decay: 0.2, sustain: 0.3, release: 0.8 }
+                }).toDestination();
+
+                // 警告音 - 刺耳的锯齿波
+                this.synths.warning = new Tone.Synth({
+                    oscillator: { type: "sawtooth" },
+                    envelope: { attack: 0.01, decay: 0.1, sustain: 0.8, release: 0.3 }
+                }).toDestination();
+
+                // 结局音效 - 和弦合成器
+                this.synths.ending = new Tone.PolySynth().toDestination();
+
+                // 恐怖音效 - 低频噪音合成器
+                this.synths.horror = new Tone.NoiseSynth({
+                    noise: { type: "brown" },
+                    envelope: { attack: 0.1, decay: 1, sustain: 0.1, release: 2 }
+                }).toDestination();
+
+                // 心跳音效 - 低频脉冲
+                this.synths.heartbeat = new Tone.MembraneSynth({
+                    pitchDecay: 0.05,
+                    octaves: 2,
+                    oscillator: { type: "sine" },
+                    envelope: { attack: 0.001, decay: 0.4, sustain: 0.01, release: 1.4 }
+                }).toDestination();
+            },
+
+            // 创建背景氛围音
+            createAmbience() {
+                // 创建低频氛围音循环
+                const ambienceFilter = new Tone.Filter(200, "lowpass").toDestination();
+                const ambienceOsc = new Tone.Oscillator(55, "sine").connect(ambienceFilter);
+                const ambienceGain = new Tone.Gain(0.1).connect(ambienceFilter);
+                ambienceOsc.connect(ambienceGain);
+
+                // 创建随机触发的氛围音效
+                this.loops.ambience = new Tone.Loop((time) => {
+                    if (this.isEnabled && Math.random() < 0.3) {
+                        // 随机播放低沉的氛围音
+                        const freq = 40 + Math.random() * 60;
+                        ambienceOsc.frequency.setValueAtTime(freq, time);
+                        ambienceGain.gain.setValueAtTime(0, time);
+                        ambienceGain.gain.linearRampToValueAtTime(0.05, time + 0.5);
+                        ambienceGain.gain.linearRampToValueAtTime(0, time + 3);
+                    }
+                }, "8m"); // 每8分钟检查一次
+
+                ambienceOsc.start();
+                this.loops.ambience.start();
+            }
+        };
+
+        // 播放音效的核心函数
+        function playSound(soundType, note = "C4", duration = "8n", volume = 0.5) {
+            if (!soundState.isInitialized || !soundState.isEnabled) return;
+
+            try {
+                const synth = soundState.synths[soundType];
+                if (!synth) return;
+
+                // 设置音量
+                synth.volume.value = Tone.gainToDb(volume);
+
+                switch (soundType) {
+                    case 'message':
+                        // 消息提示音 - 柔和的上升音调
+                        synth.triggerAttackRelease("G4", "8n");
+                        setTimeout(() => synth.triggerAttackRelease("C5", "8n"), 100);
+                        break;
+
+                    case 'select':
+                        // 选项点击音 - 清脆的单音
+                        synth.triggerAttackRelease("E5", "16n");
+                        break;
+
+                    case 'discover':
+                        // 发现物品音 - 愉悦的三音符
+                        synth.triggerAttackRelease("C5", "8n");
+                        setTimeout(() => synth.triggerAttackRelease("E5", "8n"), 150);
+                        setTimeout(() => synth.triggerAttackRelease("G5", "4n"), 300);
+                        break;
+
+                    case 'warning':
+                        // 警告音 - 刺耳的重复音
+                        for (let i = 0; i < 3; i++) {
+                            setTimeout(() => synth.triggerAttackRelease("A3", "16n"), i * 200);
+                        }
+                        break;
+
+                    case 'horror':
+                        // 恐怖音效 - 噪音爆发
+                        synth.triggerAttackRelease("2n");
+                        break;
+
+                    case 'heartbeat':
+                        // 心跳音效 - 低频脉冲
+                        synth.triggerAttackRelease("C1", "8n");
+                        setTimeout(() => synth.triggerAttackRelease("C1", "16n"), 200);
+                        break;
+
+                    default:
+                        synth.triggerAttackRelease(note, duration);
+                }
+            } catch (error) {
+                console.warn('播放音效失败:', error);
+            }
+        }
+
+        // 播放结局音效
+        function playEndingSound(isGoodEnding = true) {
+            if (!soundState.isInitialized || !soundState.isEnabled) return;
+
+            try {
+                const synth = soundState.synths.ending;
+                synth.volume.value = Tone.gainToDb(0.3);
+
+                if (isGoodEnding) {
+                    // 好结局 - 大调和弦进行
+                    const chords = [
+                        ["C4", "E4", "G4"],
+                        ["F4", "A4", "C5"],
+                        ["G4", "B4", "D5"],
+                        ["C5", "E5", "G5"]
+                    ];
+
+                    chords.forEach((chord, index) => {
+                        setTimeout(() => {
+                            synth.triggerAttackRelease(chord, "2n");
+                        }, index * 800);
+                    });
+                } else {
+                    // 坏结局 - 小调和弦，不和谐音
+                    const chords = [
+                        ["C4", "Eb4", "G4"],
+                        ["F4", "Ab4", "C5"],
+                        ["G4", "Bb4", "D5"],
+                        ["C4", "Eb4", "Gb4"]
+                    ];
+
+                    chords.forEach((chord, index) => {
+                        setTimeout(() => {
+                            synth.triggerAttackRelease(chord, "2n");
+                        }, index * 1000);
+                    });
+                }
+            } catch (error) {
+                console.warn('播放结局音效失败:', error);
+            }
+        }
+
+        // 开始/停止心跳循环
+        function startHeartbeatLoop() {
+            if (soundState.heartbeatLoop) return;
+
+            soundState.heartbeatLoop = new Tone.Loop((time) => {
+                if (soundState.isEnabled && gameState.health <= 30) {
+                    playSound('heartbeat', "C1", "8n", 0.4);
+                }
+            }, "1.2s");
+
+            soundState.heartbeatLoop.start();
+        }
+
+        function stopHeartbeatLoop() {
+            if (soundState.heartbeatLoop) {
+                soundState.heartbeatLoop.stop();
+                soundState.heartbeatLoop.dispose();
+                soundState.heartbeatLoop = null;
+            }
+        }
+
+        // 音效控制
+        const audioToggle = document.getElementById('audio-toggle');
+
+        audioToggle.addEventListener('click', () => {
+            soundState.isEnabled = !soundState.isEnabled;
+            audioToggle.textContent = soundState.isEnabled ? '🔊' : '🔇';
+            audioToggle.title = soundState.isEnabled ? '关闭音效' : '开启音效';
+
+            if (!soundState.isEnabled) {
+                // 停止心跳循环
+                stopHeartbeatLoop();
+
+                // 停止氛围音循环
+                if (soundState.loops.ambience) {
+                    soundState.loops.ambience.stop();
+                }
+            } else {
+                // 播放测试音效
+                playSound('select');
+
+                // 重新开始氛围音
+                if (soundState.loops.ambience) {
+                    soundState.loops.ambience.start();
+                }
+
+                // 如果生命值低，重新开始心跳
+                if (gameState.health <= 30) {
+                    startHeartbeatLoop();
+                }
+            }
+        });
+
         function restartGame() {
             gameState = {
                 health: 100,
@@ -152,6 +456,10 @@
             };
             chatContainer.innerHTML = '';
             modalOverlay.classList.add('hidden');
+
+            // 停止心跳循环
+            stopHeartbeatLoop();
+
             updateStatus();
             playScene('start');
         }
@@ -856,6 +1164,20 @@
             messageBubble.textContent = text;
             chatContainer.appendChild(messageBubble);
             chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // 播放消息音效
+            if (sender === 'character') {
+                // 根据消息内容播放不同音效
+                if (specialClass === 'diary-entry') {
+                    playSound('horror', "C2", "2n", 0.3);
+                } else if (text.includes('辐射') || text.includes('警报') || text.includes('危险') || text.includes('爆炸')) {
+                    playSound('warning', "A3", "8n", 0.4);
+                } else if (text.includes('找到') || text.includes('发现') || text.includes('成功') || text.includes('获得')) {
+                    playSound('discover', "C5", "4n", 0.4);
+                } else {
+                    playSound('message', "G4", "8n", 0.5);
+                }
+            }
         }
 
         function showTypingIndicator() {
@@ -865,6 +1187,9 @@
             indicator.id = 'typing';
             chatContainer.appendChild(indicator);
             chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // 播放轻微的打字音效
+            playSound('select', "C6", "32n", 0.1);
         }
 
         function removeTypingIndicator() {
@@ -876,7 +1201,7 @@
 
         function playScene(sceneId) {
             choicesContainer.innerHTML = '';
-            
+
             let scene = story[sceneId];
             gameState.currentScene = sceneId;
 
@@ -906,6 +1231,9 @@
                 }
             }
             updateStatus();
+
+            // 场景特定音效
+            playSceneAudio(sceneId);
 
             const messages = scene.getText ? scene.getText(gameState) : scene.text;
             const specialClass = scene.specialClass || '';
@@ -941,11 +1269,19 @@
                  return;
             }
 
-            validChoices.forEach(choice => {
+            validChoices.forEach((choice, index) => {
                 const button = document.createElement('button');
                 button.textContent = choice.text;
                 button.className = "w-full bg-gray-700 hover:bg-gray-600 text-gray-200 font-semibold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105";
-                button.onclick = () => {
+                button.onclick = async () => {
+                    // 首次点击时初始化音效系统
+                    if (!soundState.isInitialized) {
+                        await soundState.init();
+                    }
+
+                    // 播放按钮点击音效
+                    playSound('select', "E5", "16n", 0.6);
+
                     choicesContainer.innerHTML = '';
                     showMessage(choice.text, 'player');
                     setTimeout(() => playScene(choice.nextScene), 500);
@@ -955,6 +1291,9 @@
         }
         
         function updateStatus() {
+            const prevHealth = gameState.health || 100;
+            const prevRadiation = gameState.radiation || 5;
+
             gameState.health = Math.max(0, Math.min(100, gameState.health));
             gameState.radiation = Math.max(0, Math.min(100, gameState.radiation));
 
@@ -982,6 +1321,19 @@
                 inventoryDisplay.textContent = '空';
             }
 
+            // 音效处理
+            // 辐射警报
+            if (gameState.radiation > 70 && prevRadiation <= 70) {
+                playSound('warning', "A3", "8n", 0.6);
+            }
+
+            // 心跳音效（低血量时）
+            if (gameState.health <= 30 && prevHealth > 30) {
+                startHeartbeatLoop();
+            } else if (gameState.health > 30 && prevHealth <= 30) {
+                stopHeartbeatLoop();
+            }
+
             if(gameState.health <= 0 && !story[gameState.currentScene]?.ending) {
                  playScene('death_despair');
             }
@@ -995,6 +1347,47 @@
             modalMessage.textContent = ending.message;
             modalOverlay.classList.remove('hidden');
             modalOverlay.style.opacity = 1;
+
+            // 停止心跳循环
+            stopHeartbeatLoop();
+
+            // 根据结局播放不同音效
+            const isGoodEnding = ending.title.includes('成功') || ending.title.includes('获救') || ending.title.includes('炸毁阳光');
+
+            if (isGoodEnding) {
+                playEndingSound(true);
+            } else {
+                playEndingSound(false);
+            }
+        }
+
+        // 场景音效处理函数
+        function playSceneAudio(sceneId) {
+            // 特定场景音效
+            const sceneAudioMap = {
+                'goToPlayground': () => playSound('warning', "A3", "4n", 0.8),
+                'playground_search': () => playSound('warning', "A3", "2n", 1.0),
+                'armTheBomb': () => playSound('warning', "A3", "1n", 0.9),
+                'escapeSequence': () => {
+                    // 爆炸音效序列
+                    playSound('warning', "C2", "1n", 0.8);
+                    setTimeout(() => playSound('horror', "C1", "1n", 0.6), 1000);
+                },
+                'mysteriousLab': () => playSound('horror', "C2", "2n", 0.4),
+                'inspectContainer': () => playSound('horror', "C2", "4n", 0.6),
+                'smashContainer': () => playSound('horror', "C1", "1n", 0.8),
+                'enterMedicalOffice': () => playSound('discover', "C5", "4n", 0.5),
+                'unlockMedicalOffice': () => playSound('discover', "G5", "8n", 0.6),
+                'takeLedger': () => playSound('discover', "E5", "8n", 0.4),
+                'takeDiary': () => playSound('horror', "C3", "4n", 0.3),
+                'readDiary': () => playSound('horror', "C2", "2n", 0.4),
+                'enterCafeteria': () => playSound('horror', "D2", "4n", 0.3),
+                'enterStore': () => playSound('discover', "F4", "8n", 0.3)
+            };
+
+            if (sceneAudioMap[sceneId]) {
+                setTimeout(() => sceneAudioMap[sceneId](), 500);
+            }
         }
 
         // 游戏开始
